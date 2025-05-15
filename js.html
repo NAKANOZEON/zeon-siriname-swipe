@@ -40,48 +40,41 @@
       transform: scale(1.05);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     }
+    .swipe-icon-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.7;
+      z-index: 10;
+      width: 300px;
+      pointer-events: none;
+      animation: fade-toggle 3s infinite;
+    }
+    @keyframes fade-toggle {
+      0% { opacity: 0; }
+      50% { opacity: 0.7; }
+      100% { opacity: 0; }
+    }
   </style>
-
-    <style>
-      .swipe-icon-overlay {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 0.7; /* 濃さを調整 */
-        z-index: 10;
-        width: 300px;
-        pointer-events: none;
-        animation: fade-toggle 3s infinite; /* 追加 */
-      }
-
-      @keyframes fade-toggle { /* 追加 */
-        0% { opacity: 0; }
-        50% { opacity: 0.7; }
-        100% { opacity: 0; }
-      }
-    </style>
-
 </head>
 <body>
   <div class="banner-container">
-  
     <img src="left_right_swipe_icon_3616.png" alt="Swipe Icon" class="swipe-icon-overlay">
-
     <div id="swipe-container" class="swipe-wrapper">
-      <a href="javascript:void(0);" onclick="handleClick()"
+      <a href="https://www.ketsuname.com/s/top" target="_blank"
          ontouchstart="handleTouchStart(event, 0)"
          ontouchmove="handleTouchMove(event)"
          ontouchend="handleTouchEnd(event)">
         <img src="image1.jpg" alt="image1">
       </a>
-      <a href="javascript:void(0);" onclick="handleClick()"
+      <a href="https://www.ketsuname.com/s/schedules" target="_blank"
          ontouchstart="handleTouchStart(event, 1)"
          ontouchmove="handleTouchMove(event)"
          ontouchend="handleTouchEnd(event)">
         <img src="image2.jpg" alt="image2">
       </a>
-      <a href="javascript:void(0);" onclick="handleClick()"
+      <a href="https://www.ketsuname.com/s/pages/course" target="_blank"
          ontouchstart="handleTouchStart(event, 2)"
          ontouchmove="handleTouchMove(event)"
          ontouchend="handleTouchEnd(event)">
@@ -91,19 +84,6 @@
   </div>
 
   <script>
-    function getClickTagFromURL() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get("clickTag") || "";
-    }
-
-    var clickTag = getClickTagFromURL();
-
-    function handleClick() {
-      if (clickTag && typeof clickTag === "string") {
-        window.open(clickTag, "_blank");
-      }
-    }
-
     let startX = 0;
     let startY = 0;
     let isDragging = false;
@@ -145,7 +125,6 @@
       const deltaY = e.changedTouches[0].clientY - startY;
 
       if (Math.abs(deltaY) > VERTICAL_SWIPE_THRESHOLD) {
-        handleClick();
         return;
       }
 
